@@ -6,11 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-secret:
-    uses: autowarefoundation/autoware-github-actions/.github/workflows/check-secret.yaml@v1
-    secrets:
-      secret: ${{ secrets.APP_ID }}
-
   sync-files:
     needs: check-secret
     if: ${{ needs.check-secret.outputs.set == 'true' }}
@@ -20,7 +15,6 @@ jobs:
         id: generate-token
         uses: tibdex/github-app-token@v1
         with:
-          app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Run sync-files
