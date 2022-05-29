@@ -11,16 +11,10 @@ jobs:
     if: ${{ needs.check-secret.outputs.set == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate-token
-        uses: tibdex/github-app-token@v1
-        with:
-          private_key: ${{ secrets.PRIVATE_KEY }}
-
       - name: Run sync-files
         uses: autowarefoundation/autoware-github-actions/sync-files@v1
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           pr-labels: |
             bot
             sync-files
