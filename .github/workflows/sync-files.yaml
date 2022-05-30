@@ -7,8 +7,6 @@ on:
 
 jobs:
   sync-files:
-    needs: check-secret
-    if: ${{ needs.check-secret.outputs.set == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Run sync-files
